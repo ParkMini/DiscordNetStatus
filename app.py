@@ -1,23 +1,21 @@
-# http://ip-api.com/json/?fields=query
+# 
 from discord_webhook import DiscordWebhook, DiscordEmbed
+import requests
+import socket
+import json
 
 webhookurl = ""
+ip = ""
 
-webhook = DiscordWebhook(url=webhookurl)
+res = requests.get("http://ip-api.com/json/?fields=query")
+res = json.loads(str(res.text))
+ip = res["query"]
 
-# create embed object for webhook
-embed = DiscordEmbed(title='Your Title', description='Lorem ipsum dolor sit', color='03b2f8')
 
-# set footer
-embed.set_footer(text='Embed Footer Text', icon_url='URL of icon')
-
-# set timestamp (default is now)
-embed.set_timestamp()
-
-# add fields to embed
-embed.add_embed_field(name='Field 1', value='Lorem ipsum')
-embed.add_embed_field(name='Field 2', value='dolor sit')
-
-# add embed object to webhook
-webhook.add_embed(embed)
-response = webhook.execute()
+# webhook = DiscordWebhook(url=webhookurl)
+# embed = DiscordEmbed(title='DiscordNetStatus', description='Lorem ipsum dolor sit', color=0x03b2f8)
+# embed.set_footer(text='Embed Footer Text', icon_url='URL of icon')
+# embed.add_embed_field(name='Field 1', value='Lorem ipsum')
+# embed.add_embed_field(name='Field 2', value='dolor sit')
+# webhook.add_embed(embed)
+# response = webhook.execute()
